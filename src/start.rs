@@ -35,7 +35,7 @@ _start:
     ldr r1, ={BSS_START}
     ldr r2, ={BSS_END}
     subs r2, r2, r1
-    bcc 3f
+    beq 3f
 2:
     strb r0, [r1], #1
     subs r2, r2, #1
@@ -45,6 +45,7 @@ _start:
     // Initialize the stack pointer. `ldr <rN>, =<symbol>` is a pseudoinstruction; it tells the
     // assembler "somehow, put the address of <symbol> into the register <rN>".
     ldr sp, ={STACK_INIT}
+    and sp, sp, -16
 
     // Clear the frame pointer
     mov fp, #0
